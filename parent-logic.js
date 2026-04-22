@@ -1,17 +1,35 @@
-function calculate() {
-    const total = parseFloat(document.getElementById('total-budget').value);
-    localStorage.setItem('totalAllocated', total);
-    
-    const items = JSON.parse(localStorage.getItem('sharedBudgetItems')) || [];
-    const body = document.getElementById('expense-body');
+const MY_FAMILY_ID = localStorage.getItem('family_id');
+
+async function calculate() {
+    // The Parent asks the database: 
+    // "Give me only the items that belong to MY family ID"
+    const response = await fetch(`/api/expenses?family_id=${MY_FAMILY_ID}`);
+    const items = await response.json();
+
+    const totalBudget = 100; // This could also be fetched from the database
     let spent = 0;
-    
-    body.innerHTML = "";
-    items.forEach((item, i) => {
-        spent += item.cost;
-        body.innerHTML += `<tr><td>${item.name}</td><td>$${item.cost}</td>
-        <td><button onclick="remove(${i})" style="width:auto; padding:5px; background:red;">Reject</button></td></tr>`;
+    const tableBody = document.getElementById('expense-body');
+    tableBody.innerHTML = "";
+
+    items.forEach(item => {
+        spent += parseFloat(item.cost);
+        tableBody.innerHTML += `
+            <tr>
+                <td>${item.item_name}</td>
+                <td>$${item.cost}</td>
+            </tr>`;
     });
+
+    const remaining = totalBudget - spent;
+    document.getElementById('balance-val').innerText = `$${remaining.toFixed(2)}`;
+
+    // Automatic Flagging for THIS parent only
+    const card = document.getElementById('balance-card');
+    if (remaining <= 10) {
+        card.className = "status-box warning-budget";
+        speak("Warning: Your student's spending has left you with less than ten dollars.");
+    }
+}
 
     const remaining = total - spent;
     const card = document.getElementById('balance-card');
@@ -28,4 +46,3 @@ function remove(i) {
 }
 
 window.onload = calculate;
-<script src="accessibility.js"></script>
