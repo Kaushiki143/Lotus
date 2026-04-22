@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lotus Arena - Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header-container">
+        <div class="logo-container"><img src="./Lotus.png" alt="Lotus Logo" style="width:40px;"></div>
+        <span class="brand-name">Manager Console</span>
+    </div>
+
+    <div class="arena-container">
+        <button id="audioBtn" onclick="toggleAudio()" style="background:#444; margin-bottom:10px;">🔊 Voice Off</button>
+
+        <div class="login-card" style="border: 2px dashed var(--accent);">
+            <p>📑 Upload Monthly Quest Plan (CSV)</p>
+            <input type="file" id="excel-upload" accept=".csv" onchange="processExcel(event)">
+        </div>
+
+        <div class="login-card" style="max-height: 400px; overflow-y: auto;">
+            <strong>Simulation Ledger</strong>
+            <table id="ledger">
+                <thead><tr><th>Action</th><th>Value</th></tr></thead>
+                <tbody id="ledger-body"></tbody>
+            </table>
+        </div>
+
+        <button onclick="window.location.href='index.html'" style="background: transparent; border: 1px solid #555; color: #aaa;">Logout</button>
+    </div>
+
+    <script src="accessibility.js"></script>
+    <script src="manager-logic.js"></script>
+</body>
+</html>
