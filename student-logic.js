@@ -68,6 +68,30 @@ function addRequest() {
         nameInput.value = "";
         costInput.value = "";
         alert("Request sent to Manager Arena!");
+        // This would be set during the login/registration process
+const MY_FAMILY_ID = localStorage.getItem('family_id'); 
+
+async function addRequest() {
+    const name = document.getElementById('stu-item-name').value;
+    const cost = parseFloat(document.getElementById('stu-item-cost').value);
+
+    if (name && cost) {
+        // We send the item to the database with the FAMILY ID
+        // This ensures it only appears on THIS student's parent's screen
+        await fetch('/api/expenses', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                family_id: MY_FAMILY_ID,
+                item_name: name,
+                cost: cost
+            })
+        });
+
+        alert("Sent to your Parent's Arena!");
+        refreshDashboard();
+    }
+}
         refreshDashboard();
     } else {
         alert("Please enter a valid name and cost.");
