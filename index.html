@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lotus - Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="header-container">
+    <div class="logo-container">
+      <img src="./Lotus.png" alt="Lotus Logo" style="width:50px; height:50px;">
+    </div>
+    <div>
+      <span class="brand-name">Lotus</span>
+      <span class="subtitle">Arena for your budget planning</span>
+    </div>
+  </div>
+
+  <div class="login-card">
+    <button class="audio-toggle" onclick="toggleAudio()" id="audioBtn">🔊 Enable Audio Assistance</button>
+    <h2 id="form-title">Login to Arena</h2>
+
+    <form id="auth-form" onsubmit="handleAuth(event)">
+      <div class="role-selection">
+        <label>
+          <input type="radio" name="role" value="parent" checked onfocus="speak('Parent or Manager account selected')">
+          <div class="role-option">Parent / Manager</div>
+        </label>
+        <label>
+          <input type="radio" name="role" value="child" onfocus="speak('Child or Student account selected')">
+          <div class="role-option">Child / Student</div>
+        </label>
+      </div>
+
+      <div id="extra-fields"></div>
+      
+      <input type="email" id="email" placeholder="Email Address" required onfocus="speak('Enter your email address')">
+      
+      <input type="password" id="pin-code" placeholder="4-Digit PIN" maxlength="4" pattern="\d{4}" required onfocus="speak('Enter your four digit pin')">
+      
+      <div id="captcha-container" style="background: #222; padding: 10px; margin-bottom: 10px; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+        <span id="captcha-text" style="font-family: monospace; font-weight: bold; letter-spacing: 5px; color: #FFB6C1;"></span>
+        <button type="button" onclick="generateCaptcha()" style="width: auto; margin-left: 10px; padding: 5px;">🔄</button>
+      </div>
+      
+      <input type="text" id="captcha-input" placeholder="Enter Captcha" required onfocus="speak('Enter the characters shown in the image')">
+
+      <button type="submit" id="submit-btn" onfocus="speak('Enter Arena button')">Enter Arena</button>
+    </form>
+
+    <div class="login-link">
+      New here? <a href="#" onclick="toggleForm(event)" id="toggle-link" onfocus="speak('Link to create a new account')">Create Account</a>
+    </div>
+  </div>
+
+  <script src="accessibility.js"></script>
+  <script src="auth-logic.js"></script>
+
+</body>
+</html>

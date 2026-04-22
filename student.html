@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lotus - Student Arena</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Unique styles for the Student Dashboard */
+    .arena-container { width: 90%; max-width: 500px; margin: 20px auto; }
+    #status-msg { font-size: 1.1rem; margin-bottom: 5px; }
+    #remaining-val { font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; }
+    .draining-label { font-size: 0.85rem; margin-top: 10px; opacity: 0.9; display: none; }
+    #draining-items { font-style: italic; font-size: 0.85rem; color: #ffcccc; }
+  </style>
+</head>
+<body>
+    <button class="audio-toggle" onclick="toggleAudio()" id="audioBtn">🔊 Enable Audio Assistance</button>
+  <div class="header-container">
+    <div class="logo-container"><img src="./Lotus.png" alt="Logo" style="width:40px;"></div>
+    <span class="brand-name">Student Arena</span>
+  </div>
+
+  <div class="arena-container">
+    <div id="status-box" class="status-box good-budget">
+      <div id="status-msg">🌟 Great Budgeting!</div>
+      <div id="remaining-val">$0.00</div>
+      
+      <div id="warning-details" class="draining-label">
+        ⚠️ High-cost items draining budget:
+        <div id="draining-items"></div>
+      </div>
+    </div>
+
+    <div class="login-card" style="width: 100%; box-sizing: border-box;">
+      <h3>Request New Item</h3>
+      <input type="text" id="stu-item-name" placeholder="Item Name (e.g. Headphones)">
+      <input type="number" id="stu-item-cost" placeholder="Cost ($)">
+      <button onclick="addRequest()">Submit for Approval</button>
+      <button onclick="window.location.href='index.html'" style="background: transparent; color: #888; border: 1px solid #555; margin-top: 15px;">Logout</button>
+    </div>
+  </div>
+
+  <script src="student-logic.js"></script>
+  <script src="accessibility.js"></script>
+</body>
+</html>
