@@ -11,7 +11,7 @@ function addMove(type) {
         
         document.getElementById('desc').value = "";
         document.getElementById('amt').value = "";
-        speak(type === 'expense' ? `Spent ${amt} gold.` : `Refilled ${amt} gold.`);
+        speak(type === 'expense' ? `Spent ${amt} Dollar.` : `Refilled ${amt} Dollar.`);
         updatePlayerDisplay();
     }
 }
@@ -32,7 +32,7 @@ function updatePlayerDisplay() {
 
     if (current <= 10 && current > 0) {
         box.className = "status-box warning-budget";
-        statusText.innerText = "⚠️ GOLD CRITICAL (Refill Needed)";
+        statusText.innerText = "⚠️ Dollar CRITICAL (Refill Needed)";
         speak("Warning. Arena gold is low.");
     } else if (current <= 0) {
         box.style.background = "#000";
