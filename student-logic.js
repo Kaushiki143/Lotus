@@ -41,9 +41,11 @@ function refreshDashboard() {
         // Over Limit Mode
         box.className = "status-box warning-budget";
         box.style.background = "#000"; // Black out for limit exceeded
-        msg.innerText = "❌ LIMIT EXCEEDED:Parent is notified.";
-        remaining=100;
+        msg.innerText = "❌ LIMIT Over.";
         warningLabel.style.display = "none";
+        remaining=100;
+        msg.innerText = "Refilled balance";
+    val.innerText = `$${remaining.toFixed(2)}`;
     } else {
         // Congratulatory Mode
         box.className = "status-box good-budget";
