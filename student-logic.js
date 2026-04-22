@@ -37,11 +37,12 @@ function refreshDashboard() {
             ? expensiveItems.map(i => i.name).join(", ") 
             : "Multiple small expenses.";
             
-    } else if (remaining <= 0) {
+    } else if (remaining == 0 || remaining<10) {
         // Over Limit Mode
         box.className = "status-box warning-budget";
         box.style.background = "#000"; // Black out for limit exceeded
-        msg.innerText = "❌ LIMIT EXCEEDED";
+        msg.innerText = "❌ LIMIT EXCEEDED:Parent is notified.";
+        remaining=100;
         warningLabel.style.display = "none";
     } else {
         // Congratulatory Mode
@@ -51,49 +52,3 @@ function refreshDashboard() {
     }
 }
 
-function addRequest() {
-    const nameInput = document.getElementById('stu-item-name');
-    const costInput = document.getElementById('stu-item-cost');
-    
-    const name = nameInput.value;
-    const cost = parseFloat(costInput.value);
-
-    if (name && cost > 0) {
-        // Fetch existing list, add new, and save back
-        const items = JSON.parse(localStorage.getItem('sharedBudgetItems')) || [];
-        items.push({ name, cost });
-        localStorage.setItem('sharedBudgetItems', JSON.stringify(items));
-
-        // Clear inputs and refresh UI
-        nameInput.value = "";
-        costInput.value = "";
-        alert("Request sent to Manager Arena!");
-        // This would be set during the login/registration process
-const MY_FAMILY_ID = localStorage.getItem('family_id'); 
-
-async function addRequest() {
-    const name = document.getElementById('stu-item-name').value;
-    const cost = parseFloat(document.getElementById('stu-item-cost').value);
-
-    if (name && cost) {
-        // We send the item to the database with the FAMILY ID
-        // This ensures it only appears on THIS student's parent's screen
-        await fetch('/api/expenses', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                family_id: MY_FAMILY_ID,
-                item_name: name,
-                cost: cost
-            })
-        });
-
-        alert("Sent to your Parent's Arena!");
-        refreshDashboard();
-    }
-}
-        refreshDashboard();
-    } else {
-        alert("Please enter a valid name and cost.");
-    }
-}
