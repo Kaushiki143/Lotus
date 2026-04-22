@@ -1,47 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lotus - Student Arena</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* Unique styles for the Student Dashboard */
-    .arena-container { width: 90%; max-width: 500px; margin: 20px auto; }
-    #status-msg { font-size: 1.1rem; margin-bottom: 5px; }
-    #remaining-val { font-size: 2.5rem; font-weight: bold; margin-bottom: 10px; }
-    .draining-label { font-size: 0.85rem; margin-top: 10px; opacity: 0.9; display: none; }
-    #draining-items { font-style: italic; font-size: 0.85rem; color: #ffcccc; }
-  </style>
+    <meta charset="UTF-8">
+    <title>Lotus Arena - Player</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button class="audio-toggle" onclick="toggleAudio()" id="audioBtn">🔊 Enable Audio Assistance</button>
-  <div class="header-container">
-    <div class="logo-container"><img src="./Lotus.png" alt="Logo" style="width:40px;"></div>
-    <span class="brand-name">Student Arena</span>
-  </div>
-
-  <div class="arena-container">
-    <div id="status-box" class="status-box good-budget">
-      <div id="status-msg">🌟 Great Budgeting!</div>
-      <div id="remaining-val">$0.00</div>
-      
-      <div id="warning-details" class="draining-label">
-        ⚠️ High-cost items draining budget:
-        <div id="draining-items"></div>
-      </div>
+    <div class="header-container">
+        <div class="logo-container"><img src="./Lotus.png" alt="Lotus Logo" style="width:40px;"></div>
+        <span class="brand-name">Player Console</span>
     </div>
 
-    <div class="login-card" style="width: 100%; box-sizing: border-box;">
-      <h3>Request New Item</h3>
-      <input type="text" id="stu-item-name" placeholder="Item Name (e.g. Headphones)">
-      <input type="number" id="stu-item-cost" placeholder="Cost ($)">
-      <button onclick="addRequest()">Submit for Approval</button>
-      <button onclick="window.location.href='index.html'" style="background: transparent; color: #888; border: 1px solid #555; margin-top: 15px;">Logout</button>
-    </div>
-  </div>
+    <div class="arena-container">
+        <button id="audioBtn" onclick="toggleAudio()" style="background:#444; margin-bottom:10px;">🔊 Voice Off</button>
 
-  <script src="student-logic.js"></script>
-  <script src="accessibility.js"></script>
+        <div id="status-box" class="status-box good-budget">
+            <h2 id="game-status">🛡️ Arena: Active</h2>
+            <div id="balance-val" style="font-size: 3rem;">$0.00</div>
+        </div>
+
+        <div class="login-card">
+            <h3>Execute Action</h3>
+            <input type="text" id="desc" placeholder="Item Name or Hustle">
+            <input type="number" id="amt" placeholder="Value ($)">
+            <div style="display: flex; gap: 10px;">
+                <button onclick="addMove('expense')" style="background:var(--danger); color:white;">Spend Gold</button>
+                <button onclick="addMove('earning')" style="background:var(--success); color:#000;">Refill Gold</button>
+            </div>
+        </div>
+
+        <button onclick="window.location.href='index.html'" style="background: transparent; border: 1px solid #555; color: #aaa;">Logout</button>
+    </div>
+
+    <script src="accessibility.js"></script>
+    <script src="student-logic.js"></script>
 </body>
 </html>
