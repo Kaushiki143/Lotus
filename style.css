@@ -1,0 +1,45 @@
+body {
+  background-color: #2f2f2f; 
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+}
+
+.header-container { display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
+.logo-container { border-radius: 12px; padding: 10px; background-color: #444; }
+.brand-name { color: #FFB6C1; font-weight: bold; font-size: 2rem; }
+.subtitle { color: #ccc; margin-left: 10px; }
+
+.login-card, .arena-container {
+  background-color: #3a3a3a;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.role-selection { display: flex; gap: 10px; margin-bottom: 20px; }
+.role-option { flex: 1; padding: 10px; border: 2px solid #555; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+input[type="radio"] { position: absolute; opacity: 0; }
+input[type="radio"]:checked + .role-option { border-color: #FFB6C1; color: #FFB6C1; background: rgba(255,182,193,0.1); }
+
+input {
+  width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid #555;
+  background-color: #222; color: white; box-sizing: border-box;
+}
+
+button {
+  width: 100%; padding: 14px; margin-top: 15px; border-radius: 8px; border: none;
+  background-color: #FFB6C1; color: #2f2f2f; font-weight: bold; cursor: pointer;
+}
+
+.status-box { padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+.good-budget { background: #2e7d32; border: 2px solid #4caf50; }
+.warning-budget { background: #d32f2f; border: 2px solid #ff5252; animation: blink 1.5s infinite; }
+@keyframes blink { 50% { opacity: 0.8; } }
