@@ -1,56 +1,44 @@
-/**
- * Student Logic - Connects to Parent Budget via localStorage
- */
+window.onload = () => updatePlayerDisplay();
 
-window.onload = () => {
-    refreshDashboard();
-};
+function addMove(type) {
+    const desc = document.getElementById('desc').value;
+    const amt = parseFloat(document.getElementById('amt').value);
 
-function refreshDashboard() {
-    // 1. Pull Data from Shared Storage
-    const totalAllocated = parseFloat(localStorage.getItem('totalAllocated')) || 0;
-    const requestedItems = JSON.parse(localStorage.getItem('sharedBudgetItems')) || [];
-    
-    // 2. Calculate Totals
-    const totalSpent = requestedItems.reduce((sum, item) => sum + item.cost, 0);
-    const remaining = totalAllocated - totalSpent;
-
-    // 3. Update UI Elements
-    const box = document.getElementById('status-box');
-    const msg = document.getElementById('status-msg');
-    const val = document.getElementById('remaining-val');
-    const warningLabel = document.getElementById('warning-details');
-    const drainingList = document.getElementById('draining-items');
-
-    val.innerText = `$${remaining.toFixed(2)}`;
-
-    // 4. THE ALGORITHM: Check Threshold ($10)
-    if (remaining <= 10 && remaining > 0) {
-        // Warning Mode
-        box.className = "status-box warning-budget";
-        msg.innerText = "🛑 Budget Draining!";
-        warningLabel.style.display = "block";
-
-        // Identify "Draining" Items (items over 25% of total budget)
-        const expensiveItems = requestedItems.filter(i => i.cost > (totalAllocated * 0.25));
-        drainingList.innerText = expensiveItems.length > 0 
-            ? expensiveItems.map(i => i.name).join(", ") 
-            : "Multiple small expenses.";
-            
-    } else if (remaining == 0 || remaining<10) {
-        // Over Limit Mode
-        box.className = "status-box warning-budget";
-        box.style.background = "#000"; // Black out for limit exceeded
-        msg.innerText = "❌ LIMIT Over.";
-        warningLabel.style.display = "none";
-        remaining=100;
-        msg.innerText = "Refilled balance";
-    val.innerText = `$${remaining.toFixed(2)}`;
-    } else {
-        // Congratulatory Mode
-        box.className = "status-box good-budget";
-        msg.innerText = "🌟 Keep up the great work! You're budgeting like a pro.";
-        warningLabel.style.display = "none";
+    if (desc && amt) {
+        let history = JSON.parse(localStorage.getItem('arena_data')) || [];
+        history.unshift({ desc, amt, type });
+        localStorage.setItem('arena_data', JSON.stringify(history));
+        
+        document.getElementById('desc').value = "";
+        document.getElementById('amt').value = "";
+        speak(type === 'expense' ? `Spent ${amt} gold.` : `Refilled ${amt} gold.`);
+        updatePlayerDisplay();
     }
 }
 
+function updatePlayerDisplay() {
+    const base = parseFloat(localStorage.getItem('base_gold')) || 0;
+    let history = JSON.parse(localStorage.getItem('arena_data')) || [];
+    let current = base;
+
+    history.forEach(item => {
+        if (item.type === 'earning') current += item.amt;
+        else current -= item.amt;
+    });
+
+    document.getElementById('balance-val').innerText = `$${current.toFixed(2)}`;
+    const box = document.getElementById('status-box');
+    const statusText = document.getElementById('game-status');
+
+    if (current <= 10 && current > 0) {
+        box.className = "status-box warning-budget";
+        statusText.innerText = "⚠️ GOLD CRITICAL (Refill Needed)";
+        speak("Warning. Arena gold is low.");
+    } else if (current <= 0) {
+        box.style.background = "#000";
+        statusText.innerText = "💀 ARENA BANKRUPT";
+    } else {
+        box.className = "status-box good-budget";
+        statusText.innerText = "🛡️ Arena: Active";
+    }
+}
