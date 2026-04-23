@@ -33,12 +33,12 @@ function updatePlayerDisplay() {
     if (current <= 10 && current > 0) {
         box.className = "status-box warning-budget";
         statusText.innerText = "⚠️ Dollar CRITICAL (Refill Needed)";
-        speak("Warning. Arena gold is low.");
+        speak("Warning. Arena money is low.");
     } else if (current <= 0) {
         box.style.background = "#000";
-        statusText.innerText = "💀 ARENA BANKRUPT";
+        statusText.innerText = "💀 ARENA money over!";
     } else {
         box.className = "status-box good-budget";
-        statusText.innerText = "🛡️ Arena: Active";
+        statusText.innerText = "🛡️ Arena-Standing: Good!";
     }
 }
