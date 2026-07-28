@@ -1,2 +1,1 @@
-# Lotus
-# The Gamified Financial Budgeter for those wanting a fun way to learn about planning the money right!
+# Lotus Arena (Financial budgeter): A gamified financial tracking application featuring responsive dual UIs, CSV budget imports, and accessible audio navigation.
